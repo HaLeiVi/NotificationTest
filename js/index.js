@@ -27,7 +27,8 @@ var app = {
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
-        this.receivedEvent('deviceready');
+        alert("is it ready?")
+        //this.receivedEvent('deviceready');
         alert("device is ready")
             var push = PushNotification.init({ "android": {"senderID": "706672304606"},
                 "ios": {"alert": "true", "badge": "true", "sound": "true"}, "windows": {} } );
@@ -55,6 +56,7 @@ var app = {
 
     // Update DOM on a Received Event
     receivedEvent: function(id) {
+        alert("hello?")
         var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
