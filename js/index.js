@@ -41,35 +41,6 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
-        if (id == "deviceready") {
-            alert("Event = deviceready")
-            try {
-            var push = PushNotification.init({ "android": {"senderID": "706672304606"},
-                "ios": {"alert": "true", "badge": "true", "sound": "true"}, "windows": {} } );
-            alert("done with 'init'")
-            }catch (e){
-                alert("Error caught:\r" + e.message)
-            }
- 
-            push.on('registration', function(data) {
-                alert(data.registrationId)
-                document.getElementByID("deviceID").innerHTML = data.registrationId 
-            });
-        
-            push.on('notification', function(data) {
-            // data.message, 
-            // data.title, 
-            // data.count, 
-            // data.sound, 
-            // data.image, 
-            // data.additionalData 
-                document.getElementById('notificationMSG').innerHTML = data.message 
-            });
-            push.on('error', function(e) {
-                alert("Oops!\r" + e.message )
-            // e.message 
-            });
-        }
     }
 };
 
