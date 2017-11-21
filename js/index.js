@@ -32,6 +32,7 @@ var app = {
 
     // Update DOM on a Received Event
     receivedEvent: function(id) {
+        alert("Event received")
         var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
@@ -41,9 +42,14 @@ var app = {
 
         console.log('Received Event: ' + id);
         if (id == "deviceready") {
+            alert("Event = deviceready")
+            try {
             var push = PushNotification.init({ "android": {"senderID": "706672304606"},
                 "ios": {"alert": "true", "badge": "true", "sound": "true"}, "windows": {} } );
             alert("done with 'init'")
+            }catch (e){
+                alert("Error caught:\r" + e.message)
+            }
  
             push.on('registration', function(data) {
                 alert(data.registrationId)
