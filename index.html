@@ -43,6 +43,8 @@
             <DIV id="deviceID"></DIV>
             <DIV id="notificationMSG" style="background-color: rgba(255,245,100,0.4);"></DIV>
             <INPUT type="button" value="Initiate notification" onclick="initit()">
+            <TEXTAREA width="100%" rows="10" id="jstxt"></TEXTAREA>
+            <INPUT type="button" value="run code" onclick="alert(eval(document.getElementById('jstxt').value))">
         </div>
 
     </body>
