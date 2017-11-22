@@ -24,7 +24,7 @@
     </platform>
     <engine name="android" spec="^6.3.0" />
     <engine name="browser" spec="^5.0.1" />
-    <plugin name="phonegap-plugin-push-parse" spec="~1.2.3" />
+    <plugin name="phonegap-plugin-push-parse" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <plugin name="phonegap-plugin-push" spec="~2.1.0" />
 </widget>
