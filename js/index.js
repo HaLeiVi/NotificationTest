@@ -48,32 +48,32 @@ app.initialize();
 
         function initit(){
             alert("Thanks. About to begin initialization.")
-            //alert(" PushNotification type is " + typeof( PushNotification))
+            alert("PushNotification type is " + typeof( PushNotification))
             /*
             try {
-            var push = PushNotification.init({ "android": {"senderID": "706672304606"},
-                "ios": {"alert": "true", "badge": "true", "sound": "true"}, "windows": {} } );
+            var push = PushNotification.init({ "android": {"senderID": "706672304606"},
+                "ios": {"alert": "true", "badge": "true", "sound": "true"}, "windows": {} } );
                 alert("done with 'init'")
             }catch (e){
                 alert("Error caught:\r" + e.message)
             }
- 
-            push.on('registration', function(data) {
+ 
+            push.on('registration', function(data) {
                 alert(data.registrationId)
-                document.getElementByID("deviceID").innerHTML = data.registrationId 
-            });
-        
-            push.on('notification', function(data) {
-            // data.message, 
-            // data.title, 
-            // data.count, 
-            // data.sound, 
-            // data.image, 
-            // data.additionalData 
-                document.getElementById('notificationMSG').innerHTML = data.message 
+                document.getElementByID("deviceID").innerHTML = data.registrationId 
             });
-            push.on('error', function(e) {
-                alert("Oops!\r" + e.message )
-            // e.message 
-            });*/
+        
+            push.on('notification', function(data) {
+            // data.message, 
+            // data.title, 
+            // data.count, 
+            // data.sound, 
+            // data.image, 
+            // data.additionalData 
+                document.getElementById('notificationMSG').innerHTML = data.message 
+            });
+            push.on('error', function(e) {
+                alert("Oops!\r" + e.message )
+            // e.message 
+            });*/
         }

@@ -17,6 +17,7 @@
     <allow-intent href="geo:*" />
     <platform name="android">
         <allow-intent href="market:*" />
+        <resource-file src="google-services.json" target="google-services.json" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
@@ -24,7 +25,8 @@
     </platform>
     <engine name="android" spec="^6.3.0" />
     <engine name="browser" spec="^5.0.1" />
-    <plugin name="phonegap-plugin-push-parse" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
-    <plugin name="phonegap-plugin-push" spec="~2.1.0" />
+    <plugin name="phonegap-plugin-push" spec="~2.1.0">
+        <variable name="SENDER_ID" value="706672304606" />
+    </plugin>
 </widget>
