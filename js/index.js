@@ -48,7 +48,7 @@ app.initialize();
 
         function initit(){
             alert("Thanks. About to begin initialization.")
-            alert(" PushNotification type is " + typeof( PushNotification))
+            //alert(" PushNotification type is " + typeof( PushNotification))
             /*
             try {
             var push = PushNotification.init({ "android": {"senderID": "706672304606"},
