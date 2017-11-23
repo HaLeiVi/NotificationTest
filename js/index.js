@@ -73,9 +73,10 @@ app.initialize();
                 document.getElementById('notificationMSG').innerHTML = data.message 
             });
 
-            push.on('accept' function(data){
+            push.on('accept', function(data){
                 alert('Thank you!!!')
-            })
+            });
+
             push.on('error', function(e) {
                 alert("Oops!\r" + e.message )
             // e.message 
