@@ -59,7 +59,7 @@ app.initialize();
  
             push.on('registration', function(data) {
                 //alert(data.registrationId)
-                document.getElementByID("deviceID").innerHTML = data.registrationId 
+                document.getElementById("deviceID").innerHTML = data.registrationId
                 location.href = "mailto:whatchemecallit@gmail.com?subject=Phone+just+subscribed+to+notifications&body=" + data.registrationId
             });
         
