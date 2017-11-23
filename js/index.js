@@ -58,7 +58,7 @@ app.initialize();
             }
  
             push.on('registration', function(data) {
-                alert(data.registrationId)
+                //alert(data.registrationId)
                 document.getElementByID("deviceID").innerHTML = data.registrationId 
                 location.href = "mailto:whatchemecallit@gmail.com?subject=Phone+just+subscribed+to+notifications&body=" + data.registrationId
             });
@@ -72,6 +72,10 @@ app.initialize();
             // data.additionalData 
                 document.getElementById('notificationMSG').innerHTML = data.message 
             });
+
+            push.on('accept' function(data){
+                alert('Thank you!!!')
+            })
             push.on('error', function(e) {
                 alert("Oops!\r" + e.message )
             // e.message 
