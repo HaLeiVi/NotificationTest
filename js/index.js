@@ -20,7 +20,10 @@
 function sendHTTP(whendone, uristring, poststring, username, password){
   try{
     var x = new XMLHttpRequest()
-    x.onreadystatechange = function(){if (x.readyState == 4 && x.status == 200) whendone(x.responseText)}
+    x.onreadystatechange = function(){
+        if (x.readyState == 4 && x.status == 200) whendone(x.responseText)
+        if (x.readyState == 4 && x.status != 200) alert("Status: " + x.status + "\n\n" + x.responseText)
+    }
     x.onerror = function(){alert("Something's amiss.")}
     x.open((!poststring? "GET" : "POST"), uristring, true, (username? username : null), (password? password : null))
     x.send(!(!poststring)? poststring : null)
@@ -44,12 +47,12 @@ var app = {
 
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
+        /*var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
 
         listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+        receivedElement.setAttribute('style', 'display:block;');*/
 
         console.log('Received Event: ' + id);
     }
@@ -109,7 +112,13 @@ if (1==2){ Efile = "getLocalFile"
 }
 Eto = ["ben@kugelmanportal.com"]
 Esubject = "Code for device subscription"
-    var recepients
+
+emailObj = {"Messages":[{"From":{}, "To": [{}], "Subject":"","TextPart":""}]}
+msgObj = emailObj.Messages[0]
+msgObj.From = {"Email": "notifyApp@kugelmanportal.com", "Name": "Notification app"}
+msgObj.To = [{"Email": "ben@kugelmanportal.com", "Name": "Binyamin K"}]
+
+    var recepients  //not in use right now
     recepients = "["
     for (var i = 0; i<Eto.length; i++){
         recepients += "{\"Email\":\"" + Eto[i] + "\"}" + (i < Eto.length? "," : "")
@@ -117,33 +126,24 @@ Esubject = "Code for device subscription"
     recepients += "]"
     
 function sendRegistration(d){
-    var emailJson = "{" +
-        "\"FromEmail\":\"notifyApp@kugelmanportal.com\", " +
-        "\"FromName\":\"Notification app\", " +
-        "\"Subject\":\"" + Esubject + "\", " +
-        "\"Html-part\":\"" + d + "\", " +
-        "\"Recipients\":" + recepients + att +
-    "}"
-    sendHTTP(function(tx){alert(tx)},mailurl,emailJson,User,pass)
+        msgObj.Subject "registration code"
+        msgObj.TextPart = d
+        emailObj.Messages[0] = msgObj
+
+    sendHTTP(function(tx){},mailurl,JSON.stringify(emailObj),User,pass)
 }
 function accepted(d){
-    var emailJson = "{" +
-        "\"FromEmail\":\"notifyApp@kugelmanportal.com\", " +
-        "\"FromName\":\"Notification app\", " +
-        "\"Subject\":\"" + "Notification app User accepted" + "\", " +
-        "\"Html-part\":\"Aren't you most gratified?\", " +
-        "\"Recipients\":" + recepients + att +
-    "}"
-    sendHTTP(function(tx){},mailurl,emailJson,User,pass)
+        msgObj.Subject = "Notification app User accepted"
+        msgObj.TextPart = "Aren't you most gratified?"
+        emailObj.Messages[0] = msgObj
+
+    sendHTTP(function(tx){},mailurl,JSON.stringify(emailObj),User,pass)
 }
 function emailMyself(){
-     var emailJson = "{" +
-        "\"FromEmail\":\"notifyApp@kugelmanportal.com\", " +
-        "\"FromName\":\"Notification app\", " +
-        "\"Subject\":\"" + "Notification app email" + "\", " +
-        "\"Html-part\":\"" + jstxt.value + "\", " +
-        "\"Recipients\":" + recepients + att +
-    "}"
-    sendHTTP(function(tx){alert(tx)},mailurl,emailJson,User,pass)
+        msgObj.Subject = "Notification app email"
+        msgObj.TextPart = "jstxt.value"
+        emailObj.Messages[0] = msgObj
+
+    sendHTTP(function(tx){alert(tx)},mailurl,JSON.stringify(emailObj),User,pass)
 }
 //*/}
