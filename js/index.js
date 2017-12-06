@@ -113,10 +113,13 @@ if (1==2){ Efile = "getLocalFile"
 Eto = ["ben@kugelmanportal.com"]
 Esubject = "Code for device subscription"
 
-emailObj = {"Messages":[{"From":{}, "To": [{}], "Subject":"","TextPart":""}]}
-msgObj = emailObj.Messages[0]
-msgObj.From = {"Email": "notifyApp@kugelmanportal.com", "Name": "Notification app"}
-msgObj.To = [{"Email": "ben@kugelmanportal.com", "Name": "Binyamin K"}]
+emailObj = {
+        "FromEmail":"notifyApp@kugelmanportal.com",
+        "FromName":"Notification app",
+        "Subject":"YMessage from Notification app",
+        "Text-part":"Dear passenger, welcome to Mailjet! May the delivery force be with you!",
+        "Recipients":[{"Email":"ben@kugelmanportal.com","Name":"Binyamin K"}]
+    }
 
     var recepients  //not in use right now
     recepients = "["
@@ -126,23 +129,20 @@ msgObj.To = [{"Email": "ben@kugelmanportal.com", "Name": "Binyamin K"}]
     recepients += "]"
     
 function sendRegistration(d){
-        msgObj.Subject = "registration code"
-        msgObj.TextPart = d
-        emailObj.Messages[0] = msgObj
+        emailObj.Subject = "registration code"
+        emailObj["Text-Part"] = d
 
     sendHTTP(function(tx){},mailurl,JSON.stringify(emailObj),User,pass)
 }
 function accepted(d){
-        msgObj.Subject = "Notification app User accepted"
-        msgObj.TextPart = "Aren't you most gratified?"
-        emailObj.Messages[0] = msgObj
+        emailObj.Subject = "Notification app User accepted"
+        emailObj["TextPart"] = "Aren't you most gratified?"
 
     sendHTTP(function(tx){},mailurl,JSON.stringify(emailObj),User,pass)
 }
 function emailMyself(){
-        msgObj.Subject = "Notification app email"
-        msgObj.TextPart = "jstxt.value"
-        emailObj.Messages[0] = msgObj
+        emailObj.Subject = "Notification app email"
+        emailObj["TextPart"] = jstxt.value
 
     sendHTTP(function(tx){alert(tx)},mailurl,JSON.stringify(emailObj),User,pass)
 }
