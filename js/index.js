@@ -18,17 +18,9 @@
  */
 
 function sendHTTP(whendone, uristring, poststring, username, password){
-  var x
-  x = new XMLHttpRequest()
+  var x = new XMLHttpRequest()
   x.onreadystatechange = function(){if (x.readyState == 4 && x.status == 200) whendone(x.responseText)}
-  x.upload.onprogress = updatesending
-  x.onprogress = updateloading
-  x.onloadstart = startedLoading
-  x.onloadend = finishedLoading
-  var ht = serverAddress.indexOf("http://") < 0 ? "http://" : ""
   x.open((!poststring? "GET" : "POST"), uristring, true, (username? username : null), (password? password : null))
-  //alert(!poststring? "GET" : "POST")
-  //alert(poststring)
   x.send(!(!poststring)? poststring : null)
 }
 
