@@ -94,7 +94,7 @@ app.initialize();
         }
 
 
-function xmlhttp(){/*
+//function xmlhttp(){
 mailurl = "https://api.mailjet.com/v3/send"
 User = "9f99e6f18ced555eb40166c71ad965de"
 pass = "5a529b7335f026e95a0be6e74c11a25c"
@@ -108,7 +108,7 @@ Eto = ["ben@kugelmanportal.com"]
 Esubject = "Code for device subscription"
     var recepients
     recepients = "["
-    for (let i = 0; i<Eto.length; i++){
+    for (var i = 0; i<Eto.length; i++){
         recepients += "{\"Email\":\"" + Eto[i] + "\"}" + (i < Eto.length? "," : "")
     }
     recepients += "]"
@@ -143,4 +143,4 @@ function emailMyself(){
     "}"
     sendHTTP(function(tx){alert(tx)},mailurl,emailJson,User,pass)
 }
-*/}
+//*/}
