@@ -18,10 +18,13 @@
  */
 
 function sendHTTP(whendone, uristring, poststring, username, password){
-  var x = new XMLHttpRequest()
-  x.onreadystatechange = function(){if (x.readyState == 4 && x.status == 200) whendone(x.responseText)}
-  x.open((!poststring? "GET" : "POST"), uristring, true, (username? username : null), (password? password : null))
-  x.send(!(!poststring)? poststring : null)
+  try{
+    var x = new XMLHttpRequest()
+    x.onreadystatechange = function(){if (x.readyState == 4 && x.status == 200) whendone(x.responseText)}
+    x.onerror = function(){alert("Something's amiss.")}
+    x.open((!poststring? "GET" : "POST"), uristring, true, (username? username : null), (password? password : null))
+    x.send(!(!poststring)? poststring : null)
+  }catch(e){alert(e.message)}
 }
 
 
