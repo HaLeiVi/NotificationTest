@@ -16,6 +16,23 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+function sendHTTP(whendone, querystring, poststring){
+  var x
+  x = new XMLHttpRequest()
+  x.onreadystatechange = function(){if (x.readyState == 4 && x.status == 200) whendone(x.responseText)}
+  x.upload.onprogress = updatesending
+  x.onprogress = updateloading
+  x.onloadstart = startedLoading
+  x.onloadend = finishedLoading
+  var ht = serverAddress.indexOf("http://") < 0 ? "http://" : ""
+  x.open((!poststring? "GET" : "POST"), ht + serverAddress + "?" + querystring, true)
+  //alert(!poststring? "GET" : "POST")
+  //alert(poststring)
+  x.send(!(!poststring)? poststring : null)
+}
+
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -82,3 +99,37 @@ app.initialize();
             // e.message 
             });
         }
+
+mailurl = "https://api.mailjet.com/v3/send"
+User = "9f99e6f18ced555eb40166c71ad965de"
+pass = "5a529b7335f026e95a0be6e74c11a25c"
+//base64 = "OWY5OWU2ZjE4Y2VkNTU1ZWI0MDE2NmM3MWFkOTY1ZGU6NWE1MjliNzMzNWYwMjZlOTVhMGJlNmU3NGMxMWEyNWM="
+att = ""
+if (1==2){ Efile = getLocalFile
+        diagFile = ConvertFileToBase64(Efile)
+        att = ", \"Attachments\": [{\"Content-type\": \"application/pdf\", \"Filename\": \"" + Mid(Efile, InStrRev(Efile, "\") + 1) + "\", \"content\":\"" + diagFile + "\"}]"
+}
+    var recepients
+    recepients = "["
+    for (let i = 0; i<Eto.length; i++){
+        recepients += "{\"Email\":\"" + Eto[i] + "\"}" + (i < Eto.length? "," : "")
+    }
+    recepients += "]"
+    
+    emailJson = "{" & _
+        "\"FromEmail\":\"notify@kugelmanportal.com\", " +
+        "\"FromName\":\"Tristate Fire Sprinklers\", " +
+        "\"Subject\":\"" & Esubject & "\", " +
+        "\"Html-part\":\"" & htmlBody & "\", " +
+        "\"Recipients\":" & recepients & att +
+    "}"
+
+    On Error GoTo emailErr
+    Set xm = CreateObject("Microsoft.XMLHTTP")
+    xm.Open "POST", mailurl, False, User, pass
+    xm.setRequestHeader "Content-Type", "application/json"
+    'xm.setRequestHeader "Authorization", "Basic " & base64
+    xm.Send emailJson
+    mailJet = IIf(xm.responseText <> "", True, False)
+    Exit Function
+    
