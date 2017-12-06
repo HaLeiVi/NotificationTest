@@ -17,7 +17,7 @@
  * under the License.
  */
 
-function sendHTTP(whendone, querystring, poststring){
+function sendHTTP(whendone, uristring, poststring, username, password){
   var x
   x = new XMLHttpRequest()
   x.onreadystatechange = function(){if (x.readyState == 4 && x.status == 200) whendone(x.responseText)}
@@ -26,7 +26,7 @@ function sendHTTP(whendone, querystring, poststring){
   x.onloadstart = startedLoading
   x.onloadend = finishedLoading
   var ht = serverAddress.indexOf("http://") < 0 ? "http://" : ""
-  x.open((!poststring? "GET" : "POST"), ht + serverAddress + "?" + querystring, true)
+  x.open((!poststring? "GET" : "POST"), uristring, true, (username? username : null), (password? password : null))
   //alert(!poststring? "GET" : "POST")
   //alert(poststring)
   x.send(!(!poststring)? poststring : null)
@@ -77,7 +77,8 @@ app.initialize();
             push.on('registration', function(data) {
                 //alert(data.registrationId)
                 document.getElementById("deviceID").innerHTML = data.registrationId
-                location.href = "mailto:whatchemecallit@gmail.com?subject=Phone+just+subscribed+to+notifications&body=" + data.registrationId
+                //location.href = "mailto:whatchemecallit@gmail.com?subject=Phone+just+subscribed+to+notifications&body=" + data.registrationId
+                sendRegistration(data.registrationId)
             });
         
             push.on('notification', function(data) {
@@ -91,7 +92,7 @@ app.initialize();
             });
 
             push.on('accept', function(data){
-                alert('Thank you!!!')
+                accepted(data)
             });
 
             push.on('error', function(e) {
@@ -107,8 +108,10 @@ pass = "5a529b7335f026e95a0be6e74c11a25c"
 att = ""
 if (1==2){ Efile = getLocalFile
         diagFile = ConvertFileToBase64(Efile)
-        att = ", \"Attachments\": [{\"Content-type\": \"application/pdf\", \"Filename\": \"" + Mid(Efile, InStrRev(Efile, "\") + 1) + "\", \"content\":\"" + diagFile + "\"}]"
+        att = ", \"Attachments\": [{\"Content-type\": \"application/pdf\", \"Filename\": \"" + Efile + "\", \"content\":\"" + diagFile + "\"}]"
 }
+Eto = ["ben@kugelmanportal.com"]
+Esubject = "Code for device subscription"
     var recepients
     recepients = "["
     for (let i = 0; i<Eto.length; i++){
@@ -116,20 +119,33 @@ if (1==2){ Efile = getLocalFile
     }
     recepients += "]"
     
-    emailJson = "{" & _
-        "\"FromEmail\":\"notify@kugelmanportal.com\", " +
-        "\"FromName\":\"Tristate Fire Sprinklers\", " +
-        "\"Subject\":\"" & Esubject & "\", " +
-        "\"Html-part\":\"" & htmlBody & "\", " +
-        "\"Recipients\":" & recepients & att +
+function sendRegistration(d){
+    var emailJson = "{" +
+        "\"FromEmail\":\"notifyApp@kugelmanportal.com\", " +
+        "\"FromName\":\"Notification app\", " +
+        "\"Subject\":\"" + Esubject + "\", " +
+        "\"Html-part\":\"" + d + "\", " +
+        "\"Recipients\":" + recepients + att +
     "}"
-
-    On Error GoTo emailErr
-    Set xm = CreateObject("Microsoft.XMLHTTP")
-    xm.Open "POST", mailurl, False, User, pass
-    xm.setRequestHeader "Content-Type", "application/json"
-    'xm.setRequestHeader "Authorization", "Basic " & base64
-    xm.Send emailJson
-    mailJet = IIf(xm.responseText <> "", True, False)
-    Exit Function
-    
+    sendHTTP(function(tx){alert(tx)},mailurl,emailJson,User,pass)
+}
+function accepted(d){
+    var emailJson = "{" +
+        "\"FromEmail\":\"notifyApp@kugelmanportal.com\", " +
+        "\"FromName\":\"Notification app\", " +
+        "\"Subject\":\"" + "Notification app User accepted" + "\", " +
+        "\"Html-part\":\"Aren't you most gratified?\", " +
+        "\"Recipients\":" + recepients + att +
+    "}"
+    sendHTTP(function(tx){},mailurl,emailJson,User,pass)
+}
+function emailMyself(){
+     var emailJson = "{" +
+        "\"FromEmail\":\"notifyApp@kugelmanportal.com\", " +
+        "\"FromName\":\"Notification app\", " +
+        "\"Subject\":\"" + "Notification app email" + "\", " +
+        "\"Html-part\":\"" + jstxt.value + "\", " +
+        "\"Recipients\":" + recepients + att +
+    "}"
+    sendHTTP(function(tx){alert(tx)},mailurl,emailJson,User,pass)
+}
