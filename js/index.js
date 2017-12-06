@@ -126,7 +126,7 @@ msgObj.To = [{"Email": "ben@kugelmanportal.com", "Name": "Binyamin K"}]
     recepients += "]"
     
 function sendRegistration(d){
-        msgObj.Subject "registration code"
+        msgObj.Subject = "registration code"
         msgObj.TextPart = d
         emailObj.Messages[0] = msgObj
 
