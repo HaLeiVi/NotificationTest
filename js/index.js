@@ -92,14 +92,15 @@ app.initialize();
             // e.message 
             });
         }
-/*
+
+
 mailurl = "https://api.mailjet.com/v3/send"
 User = "9f99e6f18ced555eb40166c71ad965de"
 pass = "5a529b7335f026e95a0be6e74c11a25c"
 //base64 = "OWY5OWU2ZjE4Y2VkNTU1ZWI0MDE2NmM3MWFkOTY1ZGU6NWE1MjliNzMzNWYwMjZlOTVhMGJlNmU3NGMxMWEyNWM="
 att = ""
-if (1==2){ Efile = getLocalFile
-        diagFile = ConvertFileToBase64(Efile)
+if (1==2){ Efile = "getLocalFile"
+        diagFile = "ConvertFileToBase64(Efile)"
         att = ", \"Attachments\": [{\"Content-type\": \"application/pdf\", \"Filename\": \"" + Efile + "\", \"content\":\"" + diagFile + "\"}]"
 }
 Eto = ["ben@kugelmanportal.com"]
@@ -141,4 +142,3 @@ function emailMyself(){
     "}"
     sendHTTP(function(tx){alert(tx)},mailurl,emailJson,User,pass)
 }
-*/
