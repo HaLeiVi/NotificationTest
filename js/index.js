@@ -26,6 +26,7 @@ function sendHTTP(whendone, uristring, poststring, username, password){
     }
     x.onerror = function(){alert("Something's amiss.")}
     x.open((!poststring? "GET" : "POST"), uristring, true, (username? username : null), (password? password : null))
+    x.setRequestHeader("Content-type", "application/json")
     x.send(!(!poststring)? poststring : null)
   }catch(e){alert(e.message)}
 }
@@ -116,8 +117,8 @@ Esubject = "Code for device subscription"
 emailObj = {
         "FromEmail":"notifyApp@kugelmanportal.com",
         "FromName":"Notification app",
-        "Subject":"YMessage from Notification app",
-        "Text-part":"Dear passenger, welcome to Mailjet! May the delivery force be with you!",
+        "Subject":"Message from Notification app",
+        "Text-part":"Text content.",
         "Recipients":[{"Email":"ben@kugelmanportal.com","Name":"Binyamin K"}]
     }
 
@@ -136,13 +137,13 @@ function sendRegistration(d){
 }
 function accepted(d){
         emailObj.Subject = "Notification app User accepted"
-        emailObj["TextPart"] = "Aren't you most gratified?"
+        emailObj["Text-Part"] = "Aren't you most gratified?"
 
     sendHTTP(function(tx){},mailurl,JSON.stringify(emailObj),User,pass)
 }
 function emailMyself(){
         emailObj.Subject = "Notification app email"
-        emailObj["TextPart"] = jstxt.value
+        emailObj["Text-Part"] = jstxt.value
 
     sendHTTP(function(tx){alert(tx)},mailurl,JSON.stringify(emailObj),User,pass)
 }
