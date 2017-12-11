@@ -79,6 +79,7 @@ app.initialize();
                     alert("New registrationId aquired")
                     document.getElementById("deviceID").innerHTML = data.registrationId
                     sendRegistration(data.registrationId)
+                    localStorage.registrationId = data.registrationId
                 }else{
                     document.getElementById('deviceID').innerHTML = "Registered"
                 } 
