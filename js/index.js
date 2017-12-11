@@ -100,6 +100,10 @@ app.initialize();
                 accepted(data)
             });
 
+            push.on('decline', function(data){
+                document.getElementById('notificationMSG').innerHTML += "<BR>DECLINED!"
+            })
+
             push.on('error', function(e) {
                 alert("Oops!\r" + e.message )
             // e.message 
