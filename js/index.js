@@ -92,7 +92,7 @@ app.initialize();
             // data.sound, 
             // data.image, 
             // data.additionalData 
-                document.getElementById('notificationMSG').innerHTML = data.message 
+                document.getElementById('notificationMSG').innerHTML += "<BR>" data.message 
             });
 
             push.on('accept', function(data){
@@ -148,6 +148,12 @@ function sendRegistration(d){
 function accepted(d){
         emailObj.Subject = "Notification app User accepted"
         emailObj["Text-Part"] = "Aren't you most gratified?"
+
+    sendHTTP(function(tx){},mailurl,JSON.stringify(emailObj),User,pass)
+}
+function declined(d){
+        emailObj.Subject = "Notification app User declined"
+        emailObj["Text-Part"] = "Aren't you most horified?"
 
     sendHTTP(function(tx){},mailurl,JSON.stringify(emailObj),User,pass)
 }
