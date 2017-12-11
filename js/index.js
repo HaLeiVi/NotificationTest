@@ -44,6 +44,7 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
         this.receivedEvent('deviceready');
+        initit();
     },
 
     // Update DOM on a Received Event
@@ -68,16 +69,19 @@ app.initialize();
             try {
             var push = PushNotification.init({ "android": {"senderID": "706672304606"},
                 "ios": {"alert": "true", "badge": "true", "sound": "true"}, "windows": {} } );
-                alert("done with 'init'")
+                //alert("done with 'init'")
             }catch (e){
                 alert("Error caught:\r" + e.message)
             }
  
             push.on('registration', function(data) {
-                //alert(data.registrationId)
-                document.getElementById("deviceID").innerHTML = data.registrationId
-                //location.href = "mailto:whatchemecallit@gmail.com?subject=Phone+just+subscribed+to+notifications&body=" + data.registrationId
-                sendRegistration(data.registrationId)
+                if (!localStorage.registrationId || localStorage.registrationId != data.registrationId){
+                    alert("New registrationId aquired")
+                    document.getElementById("deviceID").innerHTML = data.registrationId
+                    sendRegistration(data.registrationId)
+                }else{
+                    document.getElementById('deviceID').innerHTML = "Registered"
+                } 
             });
         
             push.on('notification', function(data) {
@@ -91,6 +95,7 @@ app.initialize();
             });
 
             push.on('accept', function(data){
+                document.getElementById('notificationMSG').innerHTML += "<BR>Action: Accept"
                 accepted(data)
             });
 
