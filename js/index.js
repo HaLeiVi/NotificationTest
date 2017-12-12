@@ -63,8 +63,8 @@ var app = {
 app.initialize();
 
         function initit(){
-            alert("About to begin initialization.")
-            alert("PushNotification type is " + typeof( PushNotification))
+            //alert("About to begin initialization.")
+            //alert("PushNotification type is " + typeof( PushNotification))
             
             try {
             var push = PushNotification.init({ "android": {"senderID": "706672304606"},
@@ -92,7 +92,7 @@ app.initialize();
             // data.sound, 
             // data.image, 
             // data.additionalData 
-                document.getElementById('notificationMSG').innerHTML += "<BR>" data.message 
+                document.getElementById('notificationMSG').innerHTML += "<BR>" + data.message 
             });
 
             push.on('accept', function(data){
